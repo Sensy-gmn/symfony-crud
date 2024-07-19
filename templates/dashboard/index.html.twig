@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+
+<main class="container mx-auto max-w-7xl flex flex-col gap-8">
+  <section class="w12/12 mx-auto flex items-center justify-center">
+    <a href="{{ path('app_new_category') }}" class="btn btn-ghost text-xl">Add new Category</a>
+  </section>
+
+    <section>
+      <h1 class="text-2xl font-bold">Tous les utilisateurs</h1>
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <!-- head -->
+            <thead class="bg-primary text-white">
+              <tr>
+                <th>id</th>
+                <th>email</th>
+                <th>role</th>
+              </tr>
+              </thead>
+              <tbody>
+                <!-- row 1 -->
+                {% for user in users %}
+                <tr>
+                  <th>{{ user.id }}</th>
+                  <td>{{ user.email }}</td>
+                  <td>
+                    {% for role in user.roles %}
+                      {{ role }}
+                    {% endfor %}
+                  </td> 
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+    </section>
+    
+    <section>
+    <h1 class="text-2xl font-bold">Toutes les catégories</h1>
+      <div class="overflow-x-auto w-full">
+        <table class="table w-full">
+          <!-- head -->
+            <thead class="bg-primary text-white w-full">
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>action</th>
+              </tr>
+              </thead>
+              <tbody>
+                <!-- row 1 -->
+                {% for category in categories %}
+                <tr>
+                  <th>{{ category.id }}</th>
+                  <td>{{ category.name }}</td>
+                  <td>
+                    <a href="/dashboard/edit-category/{{ category.id }}" class="btn btn-info">
+                      <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a href="/dashboard/delete-category/{{ category.id }}" class="btn btn-error">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  <td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+    </section>
+</main>
+{% endblock %}

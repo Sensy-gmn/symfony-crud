@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+<main>
+
+    <h1 class="text-4xl text-center mb-20">New Recipe</h1>
+
+    <section class="w-12/12 md:w-6/12 mx-auto mb-20">
+
+        {{ form_start( recipeForm ) }}
+
+            {{ form_row( recipeForm.title ) }}
+            {{ form_row( recipeForm.description ) }}
+            {{ form_row( recipeForm.category ) }}
+
+            <ul
+                class="ingredients"
+                data-index="{{ recipeForm.ingredients|length > 0 ? recipeForm.ingredients|last.vars.name + 1 : 0 }}"
+                data-prototype="{{ form_widget( recipeForm.ingredients.vars.prototype )|e('html_attr')  }}"
+            >
+                {% for i in recipeForm.ingredients %}
+                    <li>{{ form_row( i.name ) }}</li>
+                {% endfor %}
+            </ul>
+            <button
+                type="button"
+                class="add_ingredient_link"
+                data-collection-holder-class="ingredients"
+            >
+                <i class="bi bi-plus-lg"></i> ingredient
+            </button>
+
+            <ul
+                class="steps"
+                data-index="{{ recipeForm.steps|length > 0 ? recipeForm.steps|last.vars.name + 1 : 0 }}"
+                data-prototype="{{ form_widget( recipeForm.steps.vars.prototype )|e('html_attr')  }}"
+            >
+                {% for i in recipeForm.steps %}
+                    <li>{{ form_row( i.name ) }}</li>
+                {% endfor %}
+            </ul>
+            <button
+                    type="button"
+                    class="add_step_link"
+                    data-collection-holder-class="steps"
+            >
+                <i class="bi bi-plus-lg"></i> step
+            </button>
+
+        {{ form_end( recipeForm ) }}
+
+    </section>
+
+</main>
+{% endblock %}
